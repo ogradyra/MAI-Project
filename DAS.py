@@ -27,7 +27,7 @@ for i in range(0,100):
 
     # Time taken for a wave to travel to a point and back for each antenna (values in secs)
     time_delay_a1.append((points[i] / c) * 2)
-    time_delay_a2.append((165 - points[i] / c) * 2)
+    time_delay_a2.append(((165 - points[i]) / c) * 2)
 
 #print(time_delay_a1)
 
@@ -62,11 +62,13 @@ for m in range(0,100):
 
     sum = 0
 
-    for n in range(len(df.time)-1):
+    for n in range(len(df.time)):
 
-        sum = sum + (new_a1[m][n]+new_a2[m][n])
-
-    e.append(sum**2)
+        sum = sum + ((new_a1[m][n]+new_a2[m][n])**2)
+        
+    print(sum)
+    
+    e.append(math.sqrt(sum)**2)
 
 
 #print("Length of combined signal array: ", len(combo_a1_a2))
