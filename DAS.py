@@ -14,9 +14,10 @@ df = pd.read_csv("ranging_data.csv", usecols=columns)
 # distance between antennas s = 1.65 m (165 cm)
 s = 165
 # speed of light (cm/s)
-c = 300000000000
-points = np.random.randint(0, 165, size = 100)
-#print(len(points))
+c = 3e11
+# points on linear scale (100 evenly spaced points)
+points = np.arange(0, 165, 1.65)
+print("Number of points: ", len(points))
 
 time_delay_a1 = []
 time_delay_a2 = []
@@ -35,51 +36,52 @@ for i in range(0,100):
 #zero counts
 zero_count_arr_a1 = []
 count_a1 = 0
-'''
+
+samples_a1 = []
+samples_a2 = []
+
 for i in range(len(time_delay_a1)):
 
-    count_a1 = 0
-
-    for j in range(len(df.time)):
-
-        if df.time[j] < time_delay_a1[i]:
-            count_a1 = count_a1 + 1
-
-    zero_count_arr_a1.append(count_a1)
-'''
-
-zero_count_arr_a2 = []
-count_a2 = 0
-'''
-for i in range(len(time_delay_a2)):
-
-    count_a2 = 0
-
-    for j in range(len(df.time)):
-
-        if df.time[j] < time_delay_a2[i]:
-            count_a2 = count_a2 + 1
-
-    zero_count_arr_a2.append(count_a2)
-'''
-
-print(zero_count_arr_a2)
+    samples_a1.append(int(1e13*time_delay_a1[i]))
+    samples_a2.append(int(1e13*time_delay_a2[i]))
+    # round numbers 
 
 
-new_a1 = df.a1.shift(periods=10000, fill_value=0)
-new_a2 = df.a2.shift(periods=8000, fill_value=0)
-print(len(new_a2))
+
+
+new_a1 = []
+new_a2 = []
+e = []
+
+#print(samples_a1)
+
+for m in range(0,100):
+
+    new_a1.append(df.a1.shift(periods=-samples_a1[m], fill_value=0))
+    new_a2.append(df.a2.shift(periods=-samples_a2[m], fill_value=0))
+
+    sum = 0
+
+    for n in range(len(df.time)-1):
+
+        sum = sum + (new_a1[m][n]+new_a2[m][n])
+
+    e.append(sum**2)
+
+
+#print("Length of combined signal array: ", len(combo_a1_a2))
+#print("Length of energy array: ", len(e))
+print("Energy\n", e)
+plt.plot(points, e)
+plt.show()
+
+t = 105/3e11
+#print(t)
+
+
+#print(len(new_a2))
 
 #plt.plot(df.time, new_a1)
+#plt.plot(df.time, df.a1)
 #plt.show()
-
 # energy equation = square each point, add, square root
-
-sum = 0
-
-for n in range(len(df.time)):
-
-    sum = sum + ((new_a1[n]+new_a2[n])**2)
-
-e = math.sqrt(sum)**2
-print(e)
