@@ -33,10 +33,6 @@ for i in range(0,100):
 
 # delay a1 and a2 by the time delays above
 
-#zero counts
-zero_count_arr_a1 = []
-count_a1 = 0
-
 samples_a1 = []
 samples_a2 = []
 
@@ -51,7 +47,8 @@ for i in range(len(time_delay_a1)):
 
 new_a1 = []
 new_a2 = []
-e = []
+comb = []
+e = 0
 
 #print(samples_a1)
 
@@ -60,21 +57,18 @@ for m in range(0,100):
     new_a1.append(df.a1.shift(periods=-samples_a1[m], fill_value=0))
     new_a2.append(df.a2.shift(periods=-samples_a2[m], fill_value=0))
 
-    sum = 0
+    e = math.sqrt(sum((new_a1[m]+new_a2[m])**2))
 
-    for n in range(len(df.time)):
-
-        sum = sum + ((new_a1[m][n]+new_a2[m][n])**2)
-        
-    print(sum)
-    
-    e.append(math.sqrt(sum)**2)
+    comb.append(e)
 
 
 #print("Length of combined signal array: ", len(combo_a1_a2))
 #print("Length of energy array: ", len(e))
-print("Energy\n", e)
-plt.plot(points, e)
+print("Energy\n", comb)
+plt.plot(points, comb)
+plt.title("Energy Map for Antenna 1 and 2")
+plt.xlabel("Distance (cm)")
+plt.ylabel("Energy")
 plt.show()
 
 t = 105/3e11
