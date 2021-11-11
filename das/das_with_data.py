@@ -38,10 +38,10 @@ samples_a2 = []
 
 for i in range(len(time_delay_a1)):
 
+    # count the number of smaples needed to delay the antenna responses at each point
     samples_a1.append(int(1e13*time_delay_a1[i]))
     samples_a2.append(int(1e13*time_delay_a2[i]))
     # round numbers 
-
 
 
 
@@ -54,19 +54,24 @@ e = 0
 
 for m in range(0,100):
 
-    new_a1.append(df.a1.shift(periods=-samples_a1[m], fill_value=0))
-    new_a2.append(df.a2.shift(periods=-samples_a2[m], fill_value=0))
+    new_a1[m] = df.a1.shift(periods=-samples_a1[m], fill_value=0)
+    new_a2[m] = df.a2.shift(periods=-samples_a2[m], fill_value=0)
 
     e = math.sqrt(sum((new_a1[m]+new_a2[m])**2))
 
-    comb.append(e)
+    comb.append(e) 
 
 
-#print("Length of combined signal array: ", len(combo_a1_a2))
-#print("Length of energy array: ", len(e))
-print("Energy\n", comb)
+# calculate energy of the combined signals at each point
+
+'''for i in range(0,100):
+
+    plt.plot(df.time, new_a1[i]+new_a2[i])
+    #plt.plot(df.time, new_a2[i])
+'''
+
 plt.plot(points, comb)
-plt.title("Energy Map for Antenna 1 and 2")
+plt.title("Energy Map")
 plt.xlabel("Distance (cm)")
 plt.ylabel("Energy")
 plt.show()
