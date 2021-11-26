@@ -23,5 +23,12 @@ d2 = dict2[989]
 #print("Scan with tumour: ", new_dict[989])
 #print("Scan without tumour: ", new_dict[997])
 #print(new_dict['c2sf3cm'])
-print("DAS data length: ", len(d1))
-print("UMBMID data length: ", len(d2))
+#print("DAS data length: ", len(d1))
+#print("UMBMID data length: ", len(d2))
+
+#print(dict1['c2sf3cm'])
+#print(dict2[989, 0, :])
+
+print("Num scans: ", len(dict2))
+print("Num frequencies: ", len(dict2[0]))
+print("Num channels: ", len(dict2[0,0]))
