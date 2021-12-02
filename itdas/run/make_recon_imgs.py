@@ -42,7 +42,7 @@ def make_recon_pickles(logger=null_logger):
     """
 
     # Load the time-domain sinograms
-    td_data = load_pickle(os.path.join(__DATA_DIR, 'td_cal_data.pickle'))
+    td_data = load_pickle(os.path.join(__DATA_DIR, 'scan_990.pickle'))
 
     # Load the geometry parameters for each experiment
     geom_params = load_pickle(os.path.join(__DATA_DIR, 'geom_params.pickle'))
@@ -53,47 +53,31 @@ def make_recon_pickles(logger=null_logger):
     itdas_imgs = dict()
     itdmas_imgs = dict()
 
-    for expt_id in td_data.keys():  # For each experiment
+    #for expt_id in td_data.keys():  # For each experiment
 
-        print("ID: ", expt_id)
+    expt_id = 'c2sf3cm'
+    print("ID: ", expt_id)
 
-        logger.info('\tReconstructing expt id:\t%s' % expt_id)
+    logger.info('\tReconstructing expt id:\t%s' % expt_id)
 
-        # Get the geometry parameters for this scan
-        tum_x, tum_y, tum_rad, adi_rad, ant_rad = geom_params[expt_id]
-        ant_rad = apply_ant_t_delay(ant_rad)  # Correct for time delay
+    # Get the geometry parameters for this scan
+    #tum_x, tum_y, tum_rad, adi_rad, ant_rad = geom_params[expt_id]
+    #print(geom_params[expt_id])
+    tum_x = 0.0075
+    tum_y = -0.0075
+    tum_rad = 0.015
+    adi_rad = 0.126 #radius A15
+    ant_rad = 0.22
+    ant_rad = apply_ant_t_delay(ant_rad)  # Correct for time delay
 
-        # Estimate average propagation speed for this scan
-        speed = estimate_speed(adi_rad=adi_rad, ant_rad=ant_rad)
+    # Estimate average propagation speed for this scan
+    speed = estimate_speed(adi_rad=adi_rad, ant_rad=ant_rad)
 
-        # Reconstruct using DAS
-        logger.info('\t\tBeginning DAS reconstruction...')
-        das_img = das(td_data[expt_id], ini_t=0, fin_t=6e-9, ant_rad=ant_rad,
-                      speed=speed, m_size=500, ini_ant_ang=-102.5)
-        das_imgs[expt_id] = das_img
-
-        '''# Reconstruct using DMAS
-        logger.info('\t\tBeginning DMAS reconstruction...')
-        dmas_img = dmas(td_data[expt_id], ini_t=0, fin_t=6e-9,
-                        ant_rad=ant_rad, speed=speed, m_size=500,
-                        ini_ant_ang=-102.5)
-        dmas_imgs[expt_id] = dmas_img
-
-        # Reconstruct using itDAS
-        logger.info('\t\tBeginning itDAS reconstruction...')
-        itdas_img = itdas(td_data[expt_id], ini_t=0, fin_t=6e-9,
-                          ini_ant_ang=-102.5,
-                          ant_rad=ant_rad, speed=speed, m_size=500,
-                          use_dmas=False, n_iters=6)
-        itdas_imgs[expt_id] = itdas_img
-
-        # Reconstruct using itDMAS
-        logger.info('\t\tBeginning itDMAS reconstruction...')
-        itdmas_img = itdas(td_data[expt_id], ini_t=0, fin_t=6e-9,
-                           ini_ant_ang=-102.5,
-                           ant_rad=ant_rad, speed=speed, m_size=500,
-                           use_dmas=True, n_iters=6)
-        itdmas_imgs[expt_id] = itdmas_img'''
+    # Reconstruct using DAS
+    logger.info('\t\tBeginning DAS reconstruction...')
+    das_img = das(td_data, ini_t=0, fin_t=6e-9, ant_rad=ant_rad,
+                    speed=speed, m_size=500, ini_ant_ang=-102.5)
+    das_imgs[expt_id] = das_img
 
     # Save the image dicts to pickle files
     save_pickle(das_imgs, os.path.join(__OUT_DIR, 'das_imgs.pickle'))

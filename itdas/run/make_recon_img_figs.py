@@ -9,8 +9,8 @@ import os
 from umbms import get_proj_path, verify_path, get_script_logger, null_logger
 from umbms.loadsave import load_pickle
 
-from umbms.beamform.imgplots import plot_img
-from umbms.beamform.extras import apply_ant_t_delay
+from imgplots import plot_img
+from extras import apply_ant_t_delay
 
 ###############################################################################
 
@@ -51,7 +51,12 @@ def make_recon_figs(logger=null_logger):
         logger.info('\tMaking figs for expt id:\t%s' % expt_id)
 
         # Get the geometry parameters from the scan
-        tum_x, tum_y, tum_rad, adi_rad, ant_rad = geom_params[expt_id]
+        #tum_x, tum_y, tum_rad, adi_rad, ant_rad = geom_params[expt_id]
+        tum_x = 0.0075
+        tum_y = -0.0075
+        tum_rad = 0.015
+        adi_rad = 0.126 #radius A15
+        ant_rad = 0.22
         ant_rad = apply_ant_t_delay(ant_rad)  # Correct for time delay
 
         # Plot DAS image
