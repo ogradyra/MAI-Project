@@ -52,10 +52,10 @@ def make_recon_figs(logger=null_logger):
 
         # Get the geometry parameters from the scan
         #tum_x, tum_y, tum_rad, adi_rad, ant_rad = geom_params[expt_id]
-        tum_x = 0.0075
-        tum_y = -0.0075
-        tum_rad = 0.015
-        adi_rad = 0.126 #radius A15
+        tum_x = 0 #0.0075
+        tum_y = 0 #-0.0075
+        tum_rad = 0 #0.015
+        adi_rad = 0.0512 #radius A15
         ant_rad = 0.22
         ant_rad = apply_ant_t_delay(ant_rad)  # Correct for time delay
 
