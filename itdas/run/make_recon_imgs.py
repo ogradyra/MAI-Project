@@ -42,7 +42,7 @@ def make_recon_pickles(logger=null_logger):
     """
 
     # Load the time-domain sinograms
-    td_data = load_pickle(os.path.join(__DATA_DIR, 'scan_990.pickle'))
+    td_data = load_pickle(os.path.join(__DATA_DIR, 'scan_998.pickle'))
 
     # Load the geometry parameters for each experiment
     geom_params = load_pickle(os.path.join(__DATA_DIR, 'geom_params.pickle'))
@@ -63,10 +63,11 @@ def make_recon_pickles(logger=null_logger):
     # Get the geometry parameters for this scan
     #tum_x, tum_y, tum_rad, adi_rad, ant_rad = geom_params[expt_id]
     #print(geom_params[expt_id])
-    tum_x = 0.0075
-    tum_y = -0.0075
-    tum_rad = 0.015
-    adi_rad = 0.126 #radius A15
+    # geom data is in metres
+    tum_x = 0
+    tum_y = 0
+    tum_rad = 0
+    adi_rad = 0.0512 #radius A15
     ant_rad = 0.22
     ant_rad = apply_ant_t_delay(ant_rad)  # Correct for time delay
 
