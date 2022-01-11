@@ -1,5 +1,6 @@
 import pickle
 import pandas as pd
+import csv
 
 # file containing the measured frequency-domain S11 parameters of all scans in that generation of the dataset, 
 # after having performed empty-chamber reference subtraction
@@ -42,8 +43,12 @@ cal = tar - emp
 #print("Num antenna points: ", len(dict2[0,0]))
 
 # metadata for scan 990
-print(md_gen2[997])
+print(md_gen2[997].values())
 
 # load scan data or metadata into a pickle file
 with open('./scan_998.pickle', 'wb') as handle:
       pickle.dump(cal, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+
+df = pd.DataFrame(md_gen2)
+df.to_csv('md2.csv')
