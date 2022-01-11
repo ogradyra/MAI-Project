@@ -140,6 +140,7 @@ def das(td_data, ini_t, fin_t, ant_rad, speed, m_size, ini_ant_ang=-130.0):
         The back-projection, in the image-space, of the return_td
     """
 
+    #n_ant_pos = td_data.shape
     n_ant_pos = td_data.shape[1]  # Get number of antenna positions
 
     # Get the distances and angles of all pixels from each antenna

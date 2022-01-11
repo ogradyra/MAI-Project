@@ -5,7 +5,7 @@ November 7, 2018
 """
 
 import numpy as np
-from umbms.beamform.extras import get_scan_times
+from extras import get_scan_times
 
 ###############################################################################
 
