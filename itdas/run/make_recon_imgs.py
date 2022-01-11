@@ -42,7 +42,7 @@ def make_recon_pickles(logger=null_logger):
     """
 
     # Load the time-domain sinograms
-    td_data = load_pickle(os.path.join(__DATA_DIR, 'scan_998.pickle'))
+    td_data = load_pickle(os.path.join(__DATA_DIR, 'scan_105.pickle'))
 
     # Load the geometry parameters for each experiment
     geom_params = load_pickle(os.path.join(__DATA_DIR, 'geom_params.pickle'))
@@ -64,11 +64,13 @@ def make_recon_pickles(logger=null_logger):
     #tum_x, tum_y, tum_rad, adi_rad, ant_rad = geom_params[expt_id]
     #print(geom_params[expt_id])
     # geom data is in metres
+    
+    # scan 105
     tum_x = 0
-    tum_y = 0
-    tum_rad = 0
-    adi_rad = 0.0512 #radius A15
-    ant_rad = 0.22
+    tum_y = -0.0075
+    tum_rad = 0.015
+    adi_rad = 0.0229 #radius A1
+    ant_rad = 0.21
     ant_rad = apply_ant_t_delay(ant_rad)  # Correct for time delay
 
     # Estimate average propagation speed for this scan
@@ -76,8 +78,9 @@ def make_recon_pickles(logger=null_logger):
 
     # Reconstruct using DAS
     logger.info('\t\tBeginning DAS reconstruction...')
+    # td_data[expt_id]
     das_img = das(td_data, ini_t=0, fin_t=6e-9, ant_rad=ant_rad,
-                    speed=speed, m_size=500, ini_ant_ang=-102.5)
+                    speed=speed, m_size=500, ini_ant_ang=-130.0)
     das_imgs[expt_id] = das_img
 
     # Save the image dicts to pickle files
