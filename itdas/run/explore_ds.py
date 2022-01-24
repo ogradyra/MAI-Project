@@ -29,19 +29,22 @@ f3.close()
 d1 = itdas['c1lf2cm']
 
 # data from umbmid scan 990
-d2 = gen2[989]
+d2 = md_gen2[997]
+print(d2)
 
+# scanning pairs:
+# tumour:         104,109
+#                 989,993,992 (tumour, emp, adi) 
+# no tumour:      997,993
+          
 # phantom scan data 
-tar = gen2[104, :, :]
+tar = gen2[997, :, :]
 # corresponding empty-chamber data for that scan
-emp = gen2[109, :, :]
+emp = gen2[993, :, :]
 # calibrate the target measurements by subtracting the empty-chamber scan data
 cal = tar - emp
 
 cal_data = iczt(cal, ini_t=0, fin_t=6e-9, n_time_pts=1024, ini_f=1e9, fin_f=8e9)
-
-print(d1.shape)
-print(cal.shape)
 
 #print("Scan with tumour: ", new_dict[989])
 #print("Scan without tumour: ", new_dict[997])
@@ -57,9 +60,10 @@ print(cal.shape)
 #print(md_gen2[997])
 
 # load scan data or metadata into a pickle file
-with open('./scan_105.pickle', 'wb') as handle:
+with open('./scan_998.pickle', 'wb') as handle:
       pickle.dump(cal_data, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 
-df = pd.DataFrame(md_gen2)
-df.to_csv('md2.csv')
+# put all gen 2 simple clean scan data into a .csv file
+#df = pd.DataFrame(md_gen2)
+#df.to_csv('md2.csv')
