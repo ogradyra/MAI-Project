@@ -164,12 +164,12 @@ def plot_img(img, tum_x=0.0, tum_y=0.0, tum_rad=0.0, adi_rad=0.0, ant_rad=0.0,
     plt.ylabel('y-axis (cm)', fontsize=16)  # Make the y-axis label
     plt.tight_layout()  # Remove excess whitespace in the figure
 
-    plt.show()
-
     # If saving the image, save it to the save_str path and close it
     if save_fig:
-        plt.savefig(save_str, transparent=transparent, dpi=dpi,
+        plt.savefig(save_str, transparent=False, dpi=dpi,
                     bbox_inches='tight')
 
         if save_close:  # If wanting to close the fig after saving
             plt.close()
+
+    #plt.show()

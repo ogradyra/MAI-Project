@@ -5,6 +5,8 @@ January 31st, 2020
 """
 
 import os
+import csv
+import pandas as pd
 
 from umbms import get_proj_path, verify_path, get_script_logger, null_logger
 from umbms.loadsave import load_pickle
@@ -37,8 +39,9 @@ def make_recon_figs(logger=null_logger):
     """
 
     # Load the geometry parameters of each scan in the dataset
-    geom_params = load_pickle(os.path.join(__GEOM_PARAM_DIR,
-                                           'geom_params.pickle'))
+    # geom_params = load_pickle(os.path.join(__GEOM_PARAM_DIR,'geom_params.pickle'))
+
+    geom_params = pd.read_csv('umbmid.csv')
 
     # Load the reconstructed images
     das_imgs = load_pickle(os.path.join(__DATA_DIR, 'das_imgs.pickle'))
@@ -46,29 +49,29 @@ def make_recon_figs(logger=null_logger):
     itdas_imgs = load_pickle(os.path.join(__DATA_DIR, 'itdas_imgs.pickle'))
     itdmas_imgs = load_pickle(os.path.join(__DATA_DIR, 'itdmas_imgs.pickle'))
 
+    for expt_id in geom_params.keys():
+        #expt_id = '423'
 
-    expt_id = 'c2sf3cm'
+        logger.info('\tMaking figs for expt id:\t%s' % expt_id)
 
-    logger.info('\tMaking figs for expt id:\t%s' % expt_id)
+        # Get the geometry parameters from the scan
+        tum_x, tum_y, tum_rad, adi_rad, ant_rad = geom_params[expt_id]
+        # print(geom_params[expt_id])
 
-    # Get the geometry parameters from the scan
-    # tum_x, tum_y, tum_rad, adi_rad, ant_rad = geom_params[expt_id]
-    # print(geom_params[expt_id])
+        # scan 628
+        # tum_x = 0.0225
+        # tum_y = -0.0175
+        # tum_rad = 0.015
+        # adi_rad = 0.06 #radius A1
+        # ant_rad = 0.21
+        ant_rad = apply_ant_t_delay(ant_rad)  # Correct for time delay
 
-    # scan 112
-    tum_x = -0.0225
-    tum_y = -0.03
-    tum_rad = 0.01
-    adi_rad = 0.06 #radius A1
-    ant_rad = 0.21
-    ant_rad = apply_ant_t_delay(ant_rad)  # Correct for time delay
-
-    # Plot DAS image
-    plot_img(das_imgs[expt_id], tum_x=tum_x, tum_y=tum_y, tum_rad=tum_rad,
-                adi_rad=adi_rad, ant_rad=ant_rad,
-                save_fig=True,
-                save_str=os.path.join(__OUT_DIR, 'das_%s.png' % expt_id),
-                title='DAS Reconstruction')
+        # Plot DAS image
+        plot_img(das_imgs[expt_id], tum_x=tum_x, tum_y=tum_y, tum_rad=tum_rad,
+        adi_rad=adi_rad, ant_rad=ant_rad,
+        save_fig=True,
+        save_str=os.path.join(__OUT_DIR, 'das_%s.png' % expt_id),
+        title='DAS Reconstruction')
 
 
 ###############################################################################
