@@ -45,11 +45,11 @@ def make_recon_pickles(logger=null_logger):
     """
 
     # Load the time-domain sinograms
-    fd_data = load_pickle(os.path.join(__DATA_DIR, 'fd_data_s11_emp.pickle'))
+    td_data = load_pickle(os.path.join(__DATA_DIR, 'td_cal_data.pickle'))
 
     # Load the geometry parameters for each experiment
-    # geom_params = load_pickle(os.path.join(__DATA_DIR, 'geom_params.pickle'))
-    geom_params = pd.read_csv('umbmid.csv')
+    geom_params = load_pickle(os.path.join(__DATA_DIR, 'geom_params.pickle'))
+    # geom_params = pd.read_csv('metadata/a3_umbmid.csv')
 
     # Init the dicts for storing the reconstructed images
     das_imgs = dict()
@@ -57,8 +57,8 @@ def make_recon_pickles(logger=null_logger):
     # itdas_imgs = dict()
     # itdmas_imgs = dict()
 
-    #for expt_id in td_data.keys():  # For each experiment
-    for expt_id in geom_params.keys():
+    for expt_id in td_data.keys():  # For each experiment
+    #for expt_id in geom_params.keys():
 
         # expt_id = '93'
         print("ID: ", expt_id)
@@ -81,10 +81,11 @@ def make_recon_pickles(logger=null_logger):
         # Reconstruct using DAS
         logger.info('\t\tBeginning DAS reconstruction...')
 
-        fd = fd_data[int(expt_id)]
-        td_data = iczt(fd, ini_t=0, fin_t=6e-9, n_time_pts=700, ini_f=1e9, fin_f=8e9)
+        # fd = fd_data[int(expt_id)]
+        # td_data = iczt(fd, ini_t=0, fin_t=6e-9, n_time_pts=700, ini_f=1e9, fin_f=8e9)
         # td_data[expt_id]
-        das_img = das(td_data, ini_t=0, fin_t=6e-9, ant_rad=ant_rad,
+        
+        das_img = das(td_data[expt_id], ini_t=0, fin_t=6e-9, ant_rad=ant_rad,
                         speed=speed, m_size=500, ini_ant_ang=-130.0)
         das_imgs[expt_id] = das_img
 

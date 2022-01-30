@@ -5,7 +5,7 @@ December 14, 2018
 """
 
 import numpy as np
-from umbms.beamform.breastmodels import get_breast, get_roi
+from breastmodels import get_breast, get_roi
 
 ###############################################################################
 
