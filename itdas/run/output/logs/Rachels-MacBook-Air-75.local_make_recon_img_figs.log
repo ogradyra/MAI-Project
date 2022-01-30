@@ -205,6 +205,7 @@
 [2022-01-24 19:29:37,877][INFO][__init__.py:126]:	UM-BMS Logger initialized in host [Rachels-MacBook-Air-75.local].
 [2022-01-24 19:29:37,877][INFO][make_recon_img_figs.py:81]:	Beginning...Plotting of All Reconstruted Images...
 [2022-01-24 19:29:37,879][INFO][make_recon_img_figs.py:52]:		Making figs for expt id:	c2sf3cm
+<<<<<<< HEAD
 [2022-01-25 16:37:15,313][INFO][__init__.py:126]:	UM-BMS Logger initialized in host [Rachels-MacBook-Air-75.local].
 [2022-01-25 16:37:15,318][INFO][make_recon_img_figs.py:81]:	Beginning...Plotting of All Reconstruted Images...
 [2022-01-25 16:37:15,321][INFO][make_recon_img_figs.py:52]:		Making figs for expt id:	c2sf3cm
@@ -394,3 +395,5 @@
 [2022-01-29 20:05:34,089][INFO][make_recon_img_figs.py:55]:		Making figs for expt id:	917
 [2022-01-29 20:05:34,700][INFO][make_recon_img_figs.py:55]:		Making figs for expt id:	918
 [2022-01-29 20:05:35,342][INFO][make_recon_img_figs.py:55]:		Making figs for expt id:	919
+=======
+>>>>>>> bf3c6e76a17510f235e81b0e208bfeb03c4f77bd
