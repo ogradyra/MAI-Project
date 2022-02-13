@@ -22,7 +22,7 @@ __GHz_to_Hz = 1e9
 
 def plot_img(img, tum_x=0.0, tum_y=0.0, tum_rad=0.0, adi_rad=0.0, ant_rad=0.0,
              save_str='', save_fig=False, cmap='inferno', max_val=1.0,
-             title='', normalize=True, crop_img=True, cbar_fmt='%.1f',
+             title='', normalize=False, crop_img=True, cbar_fmt='%.1f',
              norm_cbar=False, cbar_max=1.0, transparent=True, dpi=300,
              save_close=True):
     """Displays a reconstruction, making a publication-ready figure

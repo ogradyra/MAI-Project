@@ -48,5 +48,6 @@ def estimate_speed(adi_rad, ant_rad, m_size=500):
 
     # Estimate the speed
     speed = np.mean(__VAC_SPEED / np.sqrt(breast_model[roi]))
+    # print(speed)
 
     return speed
