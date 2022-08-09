@@ -5,4 +5,3 @@ Microwave imaging is an emerging imaging modality that has shown promising resul
 ### Links 
 * [Interim Report](https://drive.google.com/file/d/1lOSxucUKHp_Lbco0zvj7vDhXU2seDYkR/view?usp=sharing)
 * [Final Report](https://drive.google.com/file/d/1K-nLqjZLx73QZ4ma9siqljyx1Ykyvxa6/view?usp=sharing)
-* [Databases](https://libguides.tcd.ie/az.php?s=127610)
